@@ -1,9 +1,9 @@
-use dioxus::core::ScopeState;
-use pulldown_cmark::{Options, Parser, html};
+use dioxus::prelude::use_hook;
+use pulldown_cmark::{html, Options, Parser};
 
-pub fn use_markdown(cx: &ScopeState) -> &dyn Fn(String) -> String {
+pub fn use_markdown() -> impl Fn(String) -> String {
     let options = Options::all();
-    cx.use_hook(|| {
+    use_hook(|| {
         move |content: String| {
             let str = &content;
             let parser = Parser::new_ext(str, options);
